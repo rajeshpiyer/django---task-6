@@ -1,0 +1,63 @@
+<!-- items.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Patients</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Additional CSS styles can be added here */
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">List of Patients</h1>
+        {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Mobile Number</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Consulting Date</th>
+                    <th scope="col">Doctor Name</th>
+                    <th scope="col">Diagnosis</th>
+                    <th scope="col">Prescription</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in items %}
+                <tr>
+                    <td>{{ patient.name }}</td>
+                    <td>{{ patient.address }}</td>
+                    <td>{{ patient.mobile_number }}</td>
+                    <td>{{ patient.email }}</td>
+                    <td>{{ patient.consulting_date }}</td>
+                    <td>{{ patient.doctor_name }}</td>
+                    <td>{{ patient.diagnosis }}</td>
+                    <td>{{ patient.prescription }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div>
+            <h2>Login Attempts</h2>
+            <p>Successful Logins: <span id="successful_logins">{{ success }}</span></p>
+            <p>Failed Attempts: <span id="failed_attempts">{{ fail }}</span></p>
+        </div>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</body>
+</html>
